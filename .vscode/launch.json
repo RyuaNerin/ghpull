@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${fileDirname}",
+            "env": {},
+            "args": [
+                "-key", "/home/ghpull/.ssh/id_ed25519",
+                "-bind", ":8081",
+                "-path", "/__push",
+                "-dir", "/srv/http/ryuar.in/_default",
+                "-secret", "1234567890",
+            ]
+        }
+    ]
+}
