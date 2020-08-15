@@ -31,7 +31,7 @@ Auto git-pull by GitHub WebHook
 1. Clone this repository, then build package
 
     ```shell
-    > git clone git@github.com:RyuaNerin/ghpull.git
+    > git clone https://github.com/RyuaNerin/ghpull.git
     > cd ghpull
     > go build -v
     ```
