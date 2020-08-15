@@ -2,6 +2,8 @@
 
 Auto git-pull by GitHub WebHook
 
+깃허브 웹훅을 활용하여, 레포지토리 업데이트 시 Git pull 수행하기
+
 ## Installation
 
 - Environment in this case
