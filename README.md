@@ -52,6 +52,7 @@ Auto git-pull by GitHub WebHook
 
     ```shell
     > sudo cp ghpull.service /etc/systemd/system/
+    > sudo vim /etc/systemd/system/ghpull.service
     > systemctl enable ghpull.service
     > systemctl start ghpull.service
     ```
