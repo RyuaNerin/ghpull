@@ -38,13 +38,25 @@ Auto git-pull by GitHub WebHook
 1. Copy binary.
 
     ```shell
-    > cp ghpull /usr/local/bin/ghpull
+    > sudo cp ghpull /usr/local/bin/ghpull
+    ```
+
+1. Edit Nginx Configure.
+
+    ```shell
+    > sudo vi /etc/nginx/conf.d/ryuar.in.conf
+    ```
+
+    ```nginx
+    location /__push {
+        proxy_pass http://unix:/run/ghpull/ryuar.in.sock;
+    }
     ```
 
 1. Run ghpull and test.
 
     ```shell
-    > /usr/local/bin/ghpull -unix "/run/ghpull/ryuar.in.sock" -path "/__push" -dir "/srv/http/ryuar.in/_default" -secret "1234567890"
+    > sudo -u ghpull /usr/local/bin/ghpull -unix "/run/ghpull/ryuar.in.sock" -path "/__push" -dir "/srv/http/ryuar.in/_default" -secret "1234567890"
     ```
 
 1. To Use systemd.
@@ -52,18 +64,6 @@ Auto git-pull by GitHub WebHook
     ```shell
     > sudo cp ghpull.service /etc/systemd/system/
     > sudo vim /etc/systemd/system/ghpull.service
-    > systemctl enable ghpull.service
-    > systemctl start ghpull.service
-    ```
-
-1. Edit Nginx Configure.
-
-    ```shell
-    > vi /etc/nginx/conf.d/ryuar.in.conf
-    ```
-
-    ```nginx
-    location /__push {
-        proxy_pass http://unix:/run/ghpull/ryuar.in.sock;
-    }
+    > sudo systemctl enable ghpull.service
+    > sudo systemctl start ghpull.service
     ```
