@@ -150,7 +150,7 @@ func b2s(b []byte) (s string) {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost || !strings.HasPrefix(r.RequestURI, path) {
-		log.Println("bad request")
+		log.Println(r.Method, r.RequestURI, "Bad Request")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
