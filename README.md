@@ -11,7 +11,6 @@ Auto git-pull by GitHub WebHook
     |GitHub WebHook Payload URL|`https://ryuar.in/__push`|
     |GitHub WebHook Secret|`1234567890`|
     |Local Repository Directory|`/srv/http/ryuar.in/_default`|
-    |SSH Key|`/home/ghpull/.ssh/id_ed25519`|
     |HTTP Server Binding|tcp `:8081`|
 
 1. Config Github Actions

@@ -9,7 +9,6 @@
             "program": "${fileDirname}",
             "env": {},
             "args": [
-                "-key", "/home/ghpull/.ssh/id_ed25519",
                 "-bind", ":8081",
                 "-path", "/__push",
                 "-dir", "/srv/http/ryuar.in/_default",
