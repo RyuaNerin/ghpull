@@ -65,7 +65,6 @@ Auto git-pull by GitHub WebHook
 
     ```nginx
     location /__push {
-        include fastcgi_params;
-        fastcgi_pass unix:/run/ghpull/ryuar.in.sock;
+        proxy_pass http://unix:/run/ghpull/ryuar.in.sock;
     }
     ```
