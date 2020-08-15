@@ -45,7 +45,7 @@ Auto git-pull by GitHub WebHook
 1. Run ghpull and test.
 
     ```shell
-    > /usr/local/bin/ghpull -key "/home/ghpull/.ssh/id_ed25519" -unix "/run/ghpull/ryuar.in.sock" -path "/__push" -dir "/srv/http/ryuar.in/_default" -secret "1234567890"
+    > /usr/local/bin/ghpull -unix "/run/ghpull/ryuar.in.sock" -path "/__push" -dir "/srv/http/ryuar.in/_default" -secret "1234567890"
     ```
 
 1. To Use systemd.

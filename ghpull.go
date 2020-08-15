@@ -8,7 +8,6 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"flag"
-	"fmt"
 	"io"
 	golog "log"
 	"net"
@@ -29,7 +28,6 @@ import (
 var (
 	secret []byte
 	path   string
-	key    string
 	dir    string
 
 	poolTimeout int
@@ -48,7 +46,6 @@ func main() {
 	argSecret := flag.String("secret", "", "WebHook Secret")
 	flag.StringVar(&dir, "dir", "", "Directory of repository")
 	flag.StringVar(&path, "path", "/push", "WebHook path")
-	flag.StringVar(&key, "key", "", "Private key to use for git commands")
 
 	argUnix := flag.String("unix", "", "Bind to UNIX Socket")
 	argUnixPerm := flag.Int("unix-perm", 777, "UNIX Socket permissions")
@@ -71,20 +68,6 @@ func main() {
 		flag.Usage()
 		os.Exit(1)
 	}
-
-	if key == "" {
-		log.Println("key is empty")
-		flag.Usage()
-		os.Exit(1)
-	}
-
-	fs, err := os.Open(key)
-	if err != nil {
-		log.Println(err)
-		flag.Usage()
-		os.Exit(1)
-	}
-	fs.Close()
 
 	var l net.Listener
 
@@ -174,7 +157,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	hex.Encode(buf[:], h.Sum(nil))
 
 	if !bytes.EqualFold(buf[:], s2b(XHubSignature)[5:]) {
-		log.Println("invalid key")
+		log.Println("Invalid signature")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -187,7 +170,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			Dir:  dir,
 			Path: "/bin/bash",
 			Args: []string{
-				"/bin/bash", "-c", fmt.Sprintf("/usr/bin/ssh-add -q \"%s\"; /usr/bin/git pull", key),
+				"/bin/bash", "-c", "/usr/bin/git pull -q",
 			},
 		}
 
@@ -232,7 +215,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		case err = <-ch:
 			printGitErr(chCmdErrDone)
 
-			log.Println("git-pull done.")
+			log.Println("git-pull exited.")
 			if gitPullErr.Len() > 0 {
 				logErr.Println(gitPullErr.Bytes())
 			}
